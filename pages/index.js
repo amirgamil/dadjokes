@@ -54,13 +54,8 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://mashable.com/article/websites-for-wasting-time/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by boredom
-        </a>
+        <p>Powered by <a href="https://twitter.com/amirbolous">Amir</a> and <a href="https://mashable.com/article/websites-for-wasting-time/"
+        >boredom</a></p>
       </footer>
     </div>
   )
