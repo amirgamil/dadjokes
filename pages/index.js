@@ -1,63 +1,65 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import axios from 'axios';
+import React, {useState} from 'react';
+import Link from 'next/link'
 
 export default function Home() {
+  const [dadJoke, setDadJoke] = useState("A joke is waiting for you...");
+
+  async function getDadJokes(){
+    const config = {
+      method: 'get',
+      headers: { 
+        'Accept': 'application/json', 
+      },
+      url: 'https://icanhazdadjoke.com/'
+    };
+
+    try {
+      const res = await axios(config);
+      setDadJoke(res.data.joke);
+    } catch (exception) {
+      console.log(exception);
+    }
+  }
+
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>I like dad jokes</title>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <span style={{color: '#0470F3'}}>Puntastic</span>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <p style={{fontSize: '30px'}}>{dadJoke}</p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <div onClick={getDadJokes} className={styles.card}>
+            <h3>Get a new joke</h3>
+            <p>So your friends don't think you're funny. Changing that is only one click away</p>
+          </div>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <Link href="/search">
+            <div className={styles.card}>
+              <h3>Search for a joke</h3>
+              <p>Forgot your dad joke, have you? smh</p>
+            </div>
+          </Link>
         </div>
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://mashable.com/article/websites-for-wasting-time/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          Powered by boredom
         </a>
       </footer>
     </div>
